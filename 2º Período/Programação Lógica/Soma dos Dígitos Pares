@@ -1,0 +1,9 @@
+1. (5pts) Crie uma regra para efetuar a soma dos dígitos pares de um número. Por exemplo, 1234 produz 6 e 815 produz 8.
+
+somaDigitoPar(N,0) :- N<10, N mod 2 =\= 0,!.
+somaDigitoPar(N,N) :- N<10, N mod 2 =:= 0,!.
+somaDigitoPar(N,C) :- Digito is N mod 10,
+    					Digito mod 2 =:= 0,
+    					NN is N//10,somaDigitoPar(NN,CC),
+    					C is CC + Digito,!;
+    					NN is N//10,somaDigitoPar(NN,C).
