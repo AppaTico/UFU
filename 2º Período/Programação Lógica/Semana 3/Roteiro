@@ -1,0 +1,12 @@
+ 2. (5pts) Um roteiro de romance barato ocorre quando duas pessoas (A e B) gostam de uma terceira pessoa e esta gosta de pelo menos um deles (A e B). Crie a regra para identificar um roteiro de romance barato.
+
+pessoa(jose).
+pessoa(lara).
+pessoa(alvaro).
+pessoa(lorenzo).
+
+gosta(alvaro,lara).
+gosta(jose,lara).
+gosta(lara,jose).
+
+roteiro(A,B,C) :- gosta(A,C),gosta(B,C),gosta(C,A);gosta(C,B);gosta(A,B),gosta(C,B),gosta(B,A);gosta(B,C);gosta(B,A),gosta(C,A),gosta(A,B);gosta(A,C).
