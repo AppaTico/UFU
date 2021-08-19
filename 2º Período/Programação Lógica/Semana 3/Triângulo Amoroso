@@ -1,0 +1,13 @@
+1. (5pts) Um triângulo amoroso ocorre quando duas pessoas (A e B) gostam de uma terceira pessoa e esta gosta dos dois (A e B). Crie a regra para identificar um triângulo amoroso.
+
+pessoa(pedro).
+pessoa(emanuel).
+pessoa(samara).
+pessoa(larissa).
+
+gosta(samara,pedro).
+gosta(samara,emanuel).
+gosta(emanuel,samara).
+gosta(pedro,samara).
+
+triangulo(A,B,C) :- gosta(C,B),gosta(C,A),gosta(A,C),gosta(B,C);gosta(B,A),gosta(B,C),gosta(A,B),gosta(C,B);gosta(A,B),gosta(A,C),gosta(C,A),gosta(B,A).
