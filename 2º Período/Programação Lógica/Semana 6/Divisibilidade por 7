@@ -1,0 +1,4 @@
+4. (10pts) Desenvolva as regras Prolog para o teste de divisibilidade por 7 (Veja o pdf da aula 6).
+
+div7(X) :- R is X mod 10, P is R*2, Q is X//10, Z is Q-P, Z > 50, div7(Z),!.
+div7(X) :- R is X mod 10, P is R*2, Q is X//10, Z is Q-P, Z < 50, Z mod 7 =:= 0,!.
