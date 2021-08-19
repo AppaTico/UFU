@@ -1,0 +1,19 @@
+ 4. (8pts) Dadas as seguinte funções:
+ 	inteiro G(N,A,B: inteiro) { 
+Se N==0 { 
+retorna A
+ }
+ retorna G(N-1,B,A+B) 
+} 
+
+inteiro F(N: inteiro) { 
+retorna G(N,0,1)
+ } 
+
+Implemente as regras para as funções F e G(Adaptado do Exercício 3.8 de Thinking Recursively - Eric Roberts).
+
+R:
+
+g(0,A,_B,A).
+g(N,A,B,Avar) :- Y is N - 1, Z is A+B, g(Y,B,Z,Avar).
+f(N,A) :- g(N,0,1,A),!
