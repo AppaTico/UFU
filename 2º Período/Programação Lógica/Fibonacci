@@ -1,0 +1,26 @@
+3. (8pts) Para calcular o Fibonacci podemos usar as seguintes identidades
+ F2n+1 = F 2 n+1 + F 2 n
+ e
+ F2n = F 2 n + 2Fn−1Fn
+
+ Por exemplo, para calcular F16 temos n = 8 e calculamos
+
+ F 2 8 + 2F7F8 
+(Confiram!!)
+ Desenvolva as regras em Prolog para calcular o valor do Fibonacci usando as identidades fornecidas (Os 10 primeiros valores de Fibonacci podem ser definidos por fatos).
+
+R:
+
+fib(1,1) :- !.
+fib(2,1) :- !.
+fib(3,2) :- !.
+fib(4,3) :- !.
+fib(5,5) :- !.
+fib(6,8) :- !.
+fib(7,13) :- !. 
+fib(8,21) :- !.
+fib(9,34) :- !.
+fib(10,55) :- !.
+
+fib(X,Y) :- F is X mod 2, F == 0, N is integer(X/2), fib(N,Z), K is Z*Z, S is N - 1, fib(S,U), P is 2*U, L is P*Z, Y is K+L.
+fib(X,Y) :- F is X mod 2, F =\= 0, V is integer(X/2), fib(V,R), O is V - 1, fib(O,A), B is A*A, C is R*R, Y is B+C.
