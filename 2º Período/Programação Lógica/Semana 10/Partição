@@ -1,0 +1,10 @@
+1 - O Problema da Partição consiste em responder se uma lista de inteiros permite ser particionada em duas partições com o somatório dos itens das partições iguais. Por exemplo, [13,10,6,4,7] é sim, pois pode ser particionada em [13,7] e [10,6,4], já a lista [5,7,9,13,15] é um não.
+
+soma([],0) :- !.
+soma([H|T], S) :- soma(T,X), S is H + X.
+
+particao2([], [], []).
+particao2([H|S], [H|L], R):- particao2(S, L, R).
+particao2([H|S], L, [H|R]):- particao2(S, L, R).
+
+particao(S, [HL|L], [HR|R]):- particao2(S, [HL|L], [HR|R]), soma([HL|L], Sum), soma([HR|R], Sum).
