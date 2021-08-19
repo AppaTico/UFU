@@ -1,0 +1,3 @@
+1. (8pts) Regra para saber (true/false) se dois intervalos tem intersecção. intersecção([I1,F1],[I2,F2]), note que não precisa gerar a intersecção. 
+
+hasIntersec([I1,F1],[I2,F2]) :- I1<I2, F1<F2, !, fail; I2<I1, F2<F1, !, fail; !, true.
