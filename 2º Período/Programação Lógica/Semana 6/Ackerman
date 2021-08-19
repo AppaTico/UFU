@@ -1,0 +1,12 @@
+5. (10pts) O número de Ackerman é definido por:
+
+ A(m, n) =    n + 1, se m = 0,
+        A(m − 1, 1) se m > 0, n = 0
+        A(m − 1, A(m, n − 1)) cc.
+
+Desenvolva as regras em Prolog para determinar o número de Ackerman.
+
+
+ack(M,N,X) :- M = 0, X is N + 1,!.
+ack(M,N,X) :- M > 0, N = 0, Y is M - 1, ack(Y,1,X),!.
+ack(M,N,X) :- Y is M - 1, Z is N - 1, ack(M,Z,O), ack(Y,O,X),!.
