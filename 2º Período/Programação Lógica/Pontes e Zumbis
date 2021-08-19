@@ -1,0 +1,17 @@
+5. (8pts) Para resolver o problema da Ponte e Zumbis (veja as aulas anteriores para os detalhes) precisaremos calcular quanto é gasto na travessia da ponte em cada uma das etapas. Para tal usamos a regra 
+calculaTempo(E, NE, C, NC, P, NP, Z, NZ, Tempogasto) 
+que instancia Tempogasto corretamente. Os demais parâmetros são a localização dos personagens: 0 para ilha e 1 para continente, assim E contêm onde o estudante iniciou a etapa e NE onde ele terminou a etapa, similarmente para C(cientista),P(pesquisador) e Z(zelador).
+ Exemplos: 
+• calculaTempo(0, 1, 0, 1, 0, 0, 0, 0, 2): ida do estudante e do cientista
+• calculaTempo(1, 0, 1, 1, 0, 0, 0, 0, 1): ´e a volta do estudante 
+
+Desenvolva a regra calculaTempo(E, NE, C, NC, P, NP, Z, NZ, Tempogasto).
+
+R:
+
+calculaTempo(0,1,0,1,0,0,0,0,2). %ida do estudante e do cientista
+calculaTempo(1,0,1,1,0,0,0,0,1). %volta do estudante
+
+
+calculaTempo(E,NE,C,NC,P,NP,Z,NZ,Tempogasto) :- E \== NE, C== NC, P == NP, Z == NZ, Tempogasto is 1;
+    C \== NC, Z == NZ, P == NP, Tempogasto is 2; Z \== NZ, P == NP, Tempogasto is 5; P \== NP, Tempogasto is 10.
