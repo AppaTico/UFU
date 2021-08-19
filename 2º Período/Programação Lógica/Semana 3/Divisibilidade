@@ -1,0 +1,3 @@
+ 5. (5pts) Teste iterativo de divisibilidade - Dizemos que d divide n (e usamos a barra vertical “|” para mostrar isso, d|n significa “d divide n”) se é possível retirar d de n até que n valha exatamente zero. Desenvolva a regra Prolog para testar a divisibilidade usando este critério.
+
+divisivel(X,Y,Z):- X>=0, Y>0, T is X/Y,F is T*Y, G is X-F, G=0,Z=1.
