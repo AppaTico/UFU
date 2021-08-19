@@ -1,0 +1,6 @@
+1. (10pts) Regras para inserir um intervalo [I, F] em uma lista de intervalos(lembrando que a lista de intervalos representa um conjunto, então é permitido “inserção duplicada”, porém sem efeito). Não é permitido uma inserção item a item. 
+
+insere( [ [I,F]|T], [ [X,F]|T], [X,Y]) :- X=<I, Y=<F,!.
+insere( [ [I,F]|T], [ [I,Y]|T], [X,Y]) :- X>=I, Y>=F,!.
+insere( [ [I,F]|T], [ [X,Y]|T], [X,Y]) :- X=<I, Y>=F,!.
+insere( [ [I,F]|T], [ [I,F]|T], [X,Y]) :- X>=I, Y=<F,!.
