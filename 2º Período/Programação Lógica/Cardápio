@@ -1,0 +1,51 @@
+1. (8pts) Dados os seguintes fatos:
+
+entrada(alface,10). 
+entrada(tomate,12). 
+entrada(legumes,17). 
+entrada(rucula,15). 
+
+principal(pf,75). 
+principal(lasanha,99). 
+principal(feijoada,120). 
+principal(macarrao,83). 
+
+sobremesa(gelatina,22). 
+sobremesa(sorvete,33). 
+sobremesa(pudim,15).
+ % Sem sobremesa 
+sobremesa(sem,0). 
+
+tipo(diet). 
+tipo(normal). 
+tipo(glutao). 
+
+Defina a regra menu que vai montar um menu de acordo com o tipo solicitado sabendo: que um menu normal é composto sempre pelos 3 tipos de prato; o diet não ultrapassa 130 calorias e o glutão tem que ultrapassar 145 calorias.
+
+R: 
+
+entrada(alface,10).
+entrada(tomate,12).
+entrada(legumes,17).
+entrada(rucula,15).
+
+principal(pf,75).
+principal(lasanha,99).
+principal(feijoada,120).
+principal(macarrao,83).
+
+sobremesa(gelatina,22).
+sobremesa(sorvete,33).
+sobremesa(pudim,15).
+% Sem sobremesa
+sobremesa(sem,0).
+
+tipo(diet).
+tipo(normal).
+tipo(glutao).
+
+menu(diet,Entrada,Principal,Sobremesa):- tipo(diet), entrada(Entrada,Z), principal(Principal,Y), sobremesa(Sobremesa,X), T is Z+Y, U is T+X, U<131.
+
+menu(normal,Entrada,Principal,Sobremesa):- tipo(normal), entrada(Entrada,_), principal(Principal,_), sobremesa(Sobremesa, X), X>0.
+
+menu(glutao,Entrada,Principal,Sobremesa):- tipo(glutao), entrada(Entrada,Z), principal(Principal,Y), sobremesa(Sobremesa,X), T is Z+Y, U is T+X, U>145.
