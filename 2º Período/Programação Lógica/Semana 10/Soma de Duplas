@@ -1,0 +1,5 @@
+2 - O problema da soma de duplas quer saber se uma determinada lista possui dois elementos cuja soma seja exatamente K (também um parâmetro do problema). 
+
+%Fazendo com K = 4 (o valor pedido é só mudar na regra em K is _)
+
+somaDupla(List, [A,B]) :- select(A, List, List2), select(B, List2, _), K is 4, A+B =:= K.
