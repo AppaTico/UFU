@@ -1,0 +1,15 @@
+ 3. (5pts) ”Alguém gosta de algo, se ele gosta de alguém que é influenciador e este influenciador gosta de algo”. Implemente esta regra em Prolog.
+
+influenciador(davi).
+influenciador(pedro).
+
+pessoa(alvaro).
+pessoa(emanuel).
+
+gosta(davi,brocolis).
+gosta(davi,davi).
+gosta(pedro,pedro).
+gosta(pedro,mingau).
+gosta(alvaro,davi).
+
+gosta(X,Y) :- gosta(X,Z),influenciador(Z),gosta(Z,Y).
