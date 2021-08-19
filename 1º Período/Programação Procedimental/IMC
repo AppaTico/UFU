@@ -1,5 +1,4 @@
 //Esse programa apresenta o IMC correspondente ao peso e altura das pessoas contidas em um arquivo
-//Por Davi de Pontes Pasquini 2020
 
 #include <stdio.h>
 #include <ctype.h>
