@@ -1,5 +1,4 @@
 //Este programa apresenta a quantidade de caracteres digitados pelo usuário, os caracteres na ordem inversa e o valor correspondente ao produto entre o primeiro, o do meio e o último caractere
-//Por Davi de Pontes Pasquini 2020
 
 #include <stdio.h>
 #define MAX 50
