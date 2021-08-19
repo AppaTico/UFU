@@ -1,0 +1,6 @@
+ 4. (5pts) “Um número é par se o antecessor do seu antecessor é par”. Implemente a regra Prolog para saber se um número é par usando este critério.
+
+par(1,0).
+par(2,1).
+
+par(X,Y) :- X>2, T is X-2, par(T,1), Y=1; X>2, T is X-2, par(T,0), Y=0.
