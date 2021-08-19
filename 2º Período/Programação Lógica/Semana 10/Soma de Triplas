@@ -1,0 +1,5 @@
+3 - O problema da soma de tripla quer saber se uma determinada lista possui 3 elementos cuja soma seja exatamente K (também um parâmetro do problema). 
+
+%Fazendo com K = 6 (o valor pedido é só mudar na regra em K is _)
+
+somaTrio(List, [A,B,C]) :- select(A, List, List2), select(B, List2, List3), select(C, List3, _), K is 6, A+B+C =:= K.
