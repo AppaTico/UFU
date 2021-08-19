@@ -1,0 +1,14 @@
+2. (8pts) Implemente as regras para “verificar” a Conjectura de Goldbach para um determinado número par.
+
+R:
+
+composto(N) :- N>2, N mod 2 =:= 0;composto_impar(N,3).
+composto_impar(N,F) :- F<N, N mod F =:= 0,!;F<N, Fp is F + 2,composto_impar(N,Fp).
+
+eh_primo(2) :- !.
+eh_primo(3) :- !.
+eh_primo(N) :-  \+composto(N).
+
+goldbach(4,2,2) :- !.
+
+goldbach(Par,P1,P2) :- Par > 2, F is Par mod 2, F == 0, eh_primo(P1), eh_primo(P2), Par is P1+P2.
