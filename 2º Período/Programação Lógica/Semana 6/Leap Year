@@ -1,0 +1,6 @@
+3. (10pts) Desenvolva as regras Prolog para determinar se um ano é leap year, huluculu ou bulukulu (regras em URI1279).
+
+ano(Ano) :-     Ano >= 2000, Ano mod 4 =:= 0, Ano mod 400 =:= 0, print('This is a leap year.'),nl;
+    		Ano >= 2000, Ano mod 15 =:= 0, print('This is a huluculu festival year.'),nl;
+		Ano >= 2000, Ano mod 55 =:= 0, Ano mod 4 =:= 0, Ano mod 100 =\= 0, print('This is a bulukulu festival year.'),nl;
+                       Ano >= 2000, Ano mod 4 =\= 0, Ano mod 15 =\= 0, print('This is an ordinary year.'),nl.
