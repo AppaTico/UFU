@@ -1,5 +1,4 @@
 //Este programa apresenta o conteúdo de um array bidimensional m[N][N] e a diagonal principal da mesma
-//por Davi de Pontes Pasquini 2020
 
 #include <stdio.h>
 #include <stdlib.h>
