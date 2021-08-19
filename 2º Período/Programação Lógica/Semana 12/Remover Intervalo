@@ -1,0 +1,28 @@
+2. (10pts) Regras para remover um intervalo [I, F] em uma lista de intervalos.(lembrando que a lista de intervalos representa um conjunto, então é permitido “remoção de itens inexistentes”, porém sem efeito). Não é permitido uma remoção item a item.
+
+contem(I,F,B) :- B>I,B<F.
+contem([[I,F]|T],[B,C]) :- contem(I,F,B), contem(I,F,C);
+contem(T,B).
+
+%1 caso: remover do inicio
+remove([[R,F]|T],[[RMU,FF]|T],[RR,C]):- RR =:= R,C<F,RMU is C+1,FF is F,!.
+
+%2 caso: remove do fim
+remove([[I,C]|T], [ [II,FMU]|T],[R,CC]) :- R>I,R<C,CC>=C,II is I,FMU is R-1,!.
+
+%3 caso: remove do "meio"
+remove([[I,F]|T],[[I,NF],[NI,F]|T],[R,C]) :- contem(I,F,R), contem(I,F,C),
+NF is R-1,
+NI is C+1,!.
+
+%4 caso: remove tudo
+remove([],L,_)              :- L = [],!. 
+remove([[X,Y]|T],L,[I,F])   :- I=<X,F>=Y,remove(T,L,[I,F]).
+
+%5 caso: remove intervalo que não existe
+remove([[X,Y]|T],L,[I,F])   :- I>Y,L = [[X,Y]|T],!;
+                               F<X,L = [[X,Y]|T],!.
+
+%6 caso: limites do remove 
+remove([[X,Y]|T],L,[I,F])   :- I<X,F>=X,F<Y,FF is F+1,L = [[FF,Y]|T],!;
+                               I>X,I=<Y,F>Y,II is I-1,L = [[X,II]|T],!.
