@@ -1,0 +1,8 @@
+1. (10pts) Problema 1272 do URI. Definir a regra uri1272(Input,Output)
+
+pegaLetra([],_) :- fail.
+pegaLetra([H|_],X) :- X = H.
+uri1272([],Output) :- Output = [].
+uri1272([H|T],Output) :- pegaLetra(H,X), print(X),
+uri1272(T,N), Output = [X|N], !;
+uri1272(T,Output).
