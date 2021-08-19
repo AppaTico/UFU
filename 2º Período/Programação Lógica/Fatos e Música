@@ -1,0 +1,29 @@
+1 - Extraia 10 fatos da música I’m my own grandpa e apresente algumas consultas como exemplo (link na plataforma MS Teams)
+
+Código:
+
+grandpa(willie,willie).
+grandma(widdow,willie).
+married(willie,widow).
+stepmother(daughter,willie).
+father(willie,daughter).
+uncle(baby,willie).
+son(baby,willie).
+hair(widdow,red).
+had(widdow,daughter).
+brother(baby,dad).
+
+2 - Extraia 10 fatos da música Family e apresente algumas consultas como exemplo (link na plataforma MS Teams)
+
+Código:
+
+named(mother,mary).
+named(brother,barry).
+named(uncle,harry).
+named(grandmother,sherry).
+named(sister,carol).
+in(grandmother,cemetery).
+in(uncle,military).
+stand(family,myside).
+are(doors,locked).
+come(police,knocking).
