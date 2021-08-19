@@ -1,0 +1,172 @@
+contaDigito(Valor,1)         :- Valor<10,!.
+contaDigito(Valor,Constante) :- ValorNovo is Valor//10,
+                                contaDigito(ValorNovo,ConstanteNova),
+                                Constante is ConstanteNova +1.
+
+prefixo(Valor,Quantia,Prefixo) :- contaDigito(Valor,Contagem),
+                                  E is Contagem - Quantia,
+                                  pow(10,E,D),
+                                  Prefixo is Valor//D.
+
+sufixo(Valor,Quantia,Sufixo) :- contaDigito(Valor,Contagem),
+                                F is Contagem - Quantia,
+                                E is Contagem - F,
+                                pow(10,E,D),
+                                Sufixo is Valor mod D.
+
+pedaco(Valor,Prefixo,Sufixo,Pedaço) :- contaDigito(Valor,Contagem), Prefix is Contagem - Sufixo, 
+                                       prefixo(Valor,Prefix,A), contaDigito(A,ContagemA),
+    				       Sufix is ContagemA - Prefixo,
+    				       sufixo(A,Sufix,Pedaço).
+
+pegaPedacos(Valor,Lista) :- contaDigito(Valor,Contagem), Max is Contagem - 1, Prefixo is 0, Sufixo is 0,    					
+    			    TT is Contagem*Contagem*Contagem,recursao(Valor,Prefixo,Sufixo,Max,TT,Lista),!.
+
+recursao(Valor,_,_,_,_,_)                   :- contaDigito(Valor,Contagem), Contagem is 1, !.
+recursao(_,_,_,_,TT,Lista)                  :- TT is 0,Lista = [],!.
+recursao(Valor,Prefixo,Sufixo,Max,TT,Lista) :- Prefixo + Sufixo =< Max,
+    					       pedacoOperator(Valor,Prefixo,Sufixo,Mult,Div), 
+    					       Prefix is Prefixo + 1,NTT is TT-1,
+                                               recursao(Valor,Prefix,Sufixo,Max,NTT,NovaLista),Lista = [Mult,Div|NovaLista];
+                                               recursao2(Valor,Sufixo,Max,TT,Lista).
+
+recursao2(Valor,Sufixo,Max,TT,Lista) :-  Sufix is Sufixo + 1,NTT is TT-1,
+    					 recursao(Valor,0,Sufix,Max,NTT,Lista).
+
+pedacoOperator(Valor,Prefixo,Sufixo,Mult,Div) :- Prefixo =\= 0, Sufixo =\= 0,
+    						 pedaco(Valor,Prefixo,Sufixo,Pedaco),
+    						 prefixo(Valor,Prefixo,X), sufixo(Valor,Sufixo,Y),
+    						 Pedaco mod 2 =:= 0,
+    					     	 R is Pedaco*2,
+    						 atom_concat(X,R,O),
+    						 atom_concat(O,Y,B),
+    						 atom_number(B,Mult),
+    						 R2 is Pedaco/2,
+    						 atom_concat(X,R2,O2),
+    						 atom_concat(O2,Y,B2),
+    						 atom_number(B2,Div);  
+    
+    						 Prefixo =\= 0, Sufixo =\= 0,
+    						 pedaco(Valor,Prefixo,Sufixo,Pedaco),
+    						 prefixo(Valor,Prefixo,X), sufixo(Valor,Sufixo,Y),
+    						 Pedaco mod 2 =\= 0,
+    					    	 R is Pedaco*2,
+    						 atom_concat(X,R,O),
+    						 atom_concat(O,Y,B),
+    						 atom_number(B,Mult),
+                                                 Div is -1;    
+    
+    						 Prefixo =:= 0, Sufixo =\= 0,
+    						 sufixo(Valor,Sufixo,Y),
+    						 contaDigito(Valor,Contagem), Prefix is Contagem - Sufixo,
+    						 prefixo(Valor,Prefix,X),
+        					 X mod 2 =\= 0,
+    					         R is X*2,
+    					  	 atom_concat(R,Y,O),
+    					         atom_number(O,Mult),
+                                                 Div is -1;  
+    
+    						 Prefixo =:= 0, Sufixo =\= 0,
+    						 sufixo(Valor,Sufixo,Y),
+       						 contaDigito(Valor,Contagem), Prefix is Contagem - Sufixo,
+    						 prefixo(Valor,Prefix,X),
+    					         X mod 2 =:= 0,
+    					         R is X*2,
+    					  	 atom_concat(R,Y,O),
+    					         atom_number(O,Mult),
+    						 R2 is X/2,
+    					         atom_concat(R2,Y,O2),
+    					         atom_number(O2,Div);   
+    
+    				                 Prefixo =\= 0, Sufixo =:= 0,
+    					         prefixo(Valor,Prefixo,Y),
+    						 contaDigito(Valor,Contagem), Sufix is Contagem - Prefixo,
+    						 sufixo(Valor,Sufix,X),
+    						 X mod 2 =\= 0,
+    					   	 R is X*2,
+    					   	 atom_concat(Y,R,O),
+    					   	 atom_number(O,Mult),
+                                                 Div is -1;
+                                            
+    						 Prefixo =\= 0, Sufixo =:= 0,
+    						 prefixo(Valor,Prefixo,Y),
+        					 contaDigito(Valor,Contagem), Sufix is Contagem - Prefixo,
+    						 sufixo(Valor,Sufix,X),
+    						 X mod 2 =:= 0,
+    					   	 R is X*2,
+    					   	 atom_concat(Y,R,O),
+    					   	 atom_number(O,Mult),
+    						 R2 is X/2,
+    					 	 atom_concat(Y,R2,O2),
+    					 	 atom_number(O2,Div);    
+    
+    						 Prefixo =:= 0, Sufixo =:= 0,
+    						 Valor mod 2 =:= 0, Mult is Valor*2, Div is Valor/2;
+    						 Prefixo =:= 0, Sufixo =:= 0,
+    						 Valor mod 2 =\=0, Mult is Valor*2,Div is -1.
+
+remover( _, [], []).
+remover( R, [R|T], T2)     :- remover( R, T, T2).
+remover( R, [H|T], [H|T2]) :- H \= R, remover( R, T, T2).
+
+remove_negativo([],LN)     :- LN = [],!. 
+remove_negativo([H|T],LN)  :- H is -1,remove_negativo(T,LN);
+                              remove_negativo(T,NLN),LN =[H|NLN].
+
+minimo([X],_,_,X) :- !.
+minimo([X,Y|Tail],_,_,N):-
+    ( X > Y ->
+        minimo([Y|Tail],_,_,N)
+    ;
+        minimo([X|Tail],_,_,N)
+    ).
+
+
+elementos_pares([], []).
+elementos_pares([H|T], Resultado) :-
+    (  0 is mod(H,2)
+    -> Resultado = [H|T2]
+    ;  Resultado = T2
+    ),
+    elementos_pares(T, T2).
+
+pega_menorLista(Valor,AntigoValor,ListaNova,Menor)    :- pegaPedacos(Valor,Lista),remove_negativo(Lista,ListaNova), 
+                                                         minimo(ListaNova,AntigoValor,ListaNova,Menor),!.
+pega_parmenorLista(Valor,AntigoValor,ListaNova,Menor) :- pegaPedacos(Valor,Lista), remove_negativo(Lista,ListaNova),
+                                                         elementos_pares(ListaNova,ListaNovaNova),
+    							 minimo(ListaNovaNova,AntigoValor,Valor,Menor),!.
+
+bruxelas(1,_,0,Lista)    :- Lista = [],!.
+bruxelas(2,_,1,Lista)    :- Lista = [1],!.
+bruxelas(3,_,11,Lista)   :- Lista = [6,12,14,28,56,112,16,8,4,2,1],!.                            
+bruxelas(4,_,2,Lista)    :- Lista = [2,1],!.
+bruxelas(6,_,10,Lista)   :- Lista = [12,14,28,56,112,16,8,4,2,1],!.
+bruxelas(7,_,9,Lista)    :- Lista = [14,28,56,112,16,8,4,2,1],!.
+bruxelas(8,_,3,Lista)    :- Lista = [4,2,1],!.
+bruxelas(9,_,9,Lista)    :- Lista = [18,14,28,56,112,16,8,4,2,1],!.
+bruxelas(11,_,11,Lista)  :- Lista = [12,14,28,56,112,16,8,4,2,1],!.
+bruxelas(12,_,9,Lista)   :- Lista = [14,28,56,112,16,8,4,2,1],!.
+bruxelas(13,_,5,Lista)   :- Lista = [16,8,4,2,1],!.
+bruxelas(14,_,8,Lista)   :- Lista = [28,56,112,16,8,4,2,1],!.
+bruxelas(16,_,4,Lista)   :- Lista = [8,4,2,1],!.
+bruxelas(17,_,7,Lista)   :- Lista = [34,32,16,8,4,2,1],!.
+bruxelas(18,_,8,Lista)   :- Lista = [14,28,56,112,16,8,4,2,1],!.
+bruxelas(19,_,8,Lista)   :- Lista = [38,34,32,16,8,4,2,1],!.
+bruxelas(21,_,18,Lista)  :- Lista = [22,12,14,28,56,112,16,8,4,2,1],!.
+
+bruxelas(Valor,AntigoValor,Passos,Lista) :- mod(Valor,5)\= 0,U is mod(Valor,10),U is 1,pega_menorLista(Valor,AntigoValor,_,Menor),
+                                            bruxelas(Menor,Valor,NovaQuantia,NovaLista),Passos is NovaQuantia + 1,Lista = [Menor|NovaLista],!;
+                                            mod(Valor,5)\= 0,U is mod(Valor,10),U is 2, M is Valor/2,
+                                            bruxelas(M,Valor,NovaQuantia,NovaLista),Passos is NovaQuantia + 1,Lista = [M|NovaLista],!;
+                                            mod(Valor,5)\= 0,U is mod(Valor,10),U is 3,pega_menorLista(Valor,AntigoValor,_,Menor),
+                                            bruxelas(Menor,Valor,NovaQuantia,NovaLista),Passos is NovaQuantia + 1,Lista = [Menor|NovaLista],!;
+                                            mod(Valor,5)\= 0,U is mod(Valor,10),U is 4,P is Valor//10,S is mod(Valor,10),SD is S/2,
+                                            M is P*10 + SD,bruxelas(M,Valor,NovaQuantia,NovaLista),Passos is NovaQuantia + 1,Lista = [M|NovaLista],!;
+                                            mod(Valor,5)\= 0,U is mod(Valor,10),U is 6,M is Valor/2,
+                                            bruxelas(M,Valor,NovaQuantia,NovaLista),Passos is NovaQuantia + 1,Lista = [M|NovaLista],!;
+                                            mod(Valor,5)\= 0,U is mod(Valor,10),U is 7,pega_parmenorLista(Valor,AntigoValor,_,Menor),
+                                            bruxelas(Menor,Valor,NovaQuantia,NovaLista),Passos is NovaQuantia + 1,Lista = [Menor|NovaLista],!;
+                                            mod(Valor,5)\= 0,U is mod(Valor,10),U is 8,P is Valor//10,S is mod(Valor,10),SD is S/2,
+                                            M is P*10 + SD,bruxelas(M,Valor,NovaQuantia,NovaLista),Passos is NovaQuantia + 1,Lista = [M|NovaLista],!;
+                                            mod(Valor,5)\= 0,U is mod(Valor,10),U is 9,pega_parmenorLista(Valor,AntigoValor,_,Menor),
+                                            bruxelas(Menor,Valor,NovaQuantia,NovaLista),Passos is NovaQuantia + 1,Lista = [Menor|NovaLista],!.
