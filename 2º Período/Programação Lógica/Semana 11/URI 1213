@@ -1,0 +1,10 @@
+2. (10pts) Problema 1213 do URI. Definir a regra uri1213(Input,Output)
+
+testeDivisao(N) :- N mod 2 =:= 0; N mod 5 =:= 0.
+multiplo(Input,Output,I,Cont) :- I mod Input =:= 0, Output is
+Cont,!;
+I2 is (I*10)+1, NCont is
+Cont+1,
+multiplo(Input,Output,I2,NCont).
+uri1213(Input,Output) :- \+ testeDivisao(Input),
+multiplo(Input,Output,1,1).
