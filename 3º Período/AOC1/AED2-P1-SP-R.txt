@@ -1,0 +1,131 @@
+Sobre o método de ordenação rápida (Quicksort), explique e forneça exemplos:
+
+Que abordagens mais eficientes poderiam ser utilizadas para a escolha do elemento pivô? (Devem ser melhores do que escolher o elemento da posição 0 do vetor.)
+Como o Insertionsort pode ser utilizado para melhorar a performance do Quicksort?
+
+2 - sem resposta
+
+Em relação ao método de ordenação Mergesort, escolha a opção incorreta:
+
+Escolha uma opção:
+a. A ordenação é baseada em comparações.
+b. É um método adaptativo.
+c. É um método estável.
+d. A ordenação não acontece na própria estrutura (not in-place).
+
+3 - Não é um método adaptativo
+
+Dos algoritmos de ordenação listados, em qual deles o tempo de execução é o mais independente da ordem de entrada dos elementos? 
+
+Escolha uma opção:
+a. Insertionsort
+b. SelectionSort
+c. Quicksort
+d. Bubblesort
+Limpar minha escolha
+
+4 - SelectionSort
+
+Considerando a técnica de construção de um heap, considere os seguintes elementos inteiros:
+
+ 9, 2, 5, 6, 0, 7, 1, 4, 3, 8 
+
+(a) Faça o desenho da representação do heap mínimo (em formato de árvore) resultante da inserção de todos os elementos, na ordem dada, num heap inicialmente vazio. Mostre também o vetor resultante.
+
+(b) Após a retirada de dois elementos do heap, como fica a árvore?
+
+5 - Heap Mínimo
+
+(A) 
+         0
+       /    \
+      2      1
+     / \    / \
+    3   6  7   5
+   / \  /
+  9  4  8
+vetor: 0 2 1 3 6 7 5 9 4 8
+
+(B) 
+         2
+       /   \
+      3      5
+     / \    / \
+    4   6  7   8
+   / 
+  9  
+
+
+6 - 
+
+Modifique o algoritmo InsertionSort para que, no lugar de ordenar todos os números, apenas sejam ordenadas as k primeiras posições.
+
+void InsertionSort(int *v, int n) {
+int i, j, aux;
+  for(i = 1; i < n; i++) {
+    aux = v[i];
+    for (j=i-1; j>=0 && v[j]>aux; j--){
+         v[j+1] = v[j];
+    }
+    v[j+1] = aux;
+  }
+}
+
+void InsertionSortKFirst(int *v, int n, int k) {
+int i, j, aux;
+  if (k > n) return;
+  for(i = 1; i < k; i++) {
+        aux = v[i];
+        for (j=i-1; j>=0 && v[j]>aux; j--){
+            v[j+1] = v[j];
+        }
+        v[j+1] = aux;
+    }
+}
+https://replit.com/@MariaAdrianaAd1/insertionSortKFirst#main.c
+
+
+Que método você escolheria para ordenar um vetor de 1000 elementos com apenas os números 1, 0 e -1 em ordem aleatória?
+
+Justifique sua escolha.
+
+7 - Counting Sort (3 posições no vetor e contagens)
+
+Dada uma representação de uma matriz de adjacências para um grafo direcionado contendo N vértices, responda às seguintes questões:
+
+(a) Quanto tempo leva para calcular o grau de saída para todos os N vértices do grafo?
+
+(b) Quanto  tempo leva para calcular o grau de entrada para todos os N vértices do grafo?
+
+(c) Quanto tempo é necessário para calcular o grau de saída e o grau de entrada para um único vértice qualquer?
+
+8 - 
+
+(a) grau de saída: para cada vértice é necessário 'varrer' uma linha, então O(n) para cada linha e O(n^2) para tudo. 
+
+(b) grau de entrada: mesma coisa para colunas, O(n^2) 
+
+(c) entrada e saída de um vértice: Ler linha e coluna, então O(2*n) ou O(n)
+
+Dada a matriz de adjacências de um grafo de N vértices, faça uma função em linguagem C que determina se esse grafo é direcionado ou não-direcionado.
+
+9 - sem resposta
+
+Sobre o algoritmo de Dijkstra para caminhos mínimos faça:
+
+(a) Explique o funcionamento do algoritmo e sua complexidade de tempo.
+
+(b) Simule o algoritmo de Dijkstra para o grafo direcionado ponderado abaixo, tendo o vértice 0 como ponto de partida. Preencha passo a passo as estruturas auxiliares para calcular os caminhos mínimos.
+
+
+10 - sem resposta
+
+(a) Em qual ordem os nós serão visitados na busca em largura? Mostre os passos.
+
+(b) Em qual ordem os nós serão visitados na busca em profundidade? Mostre os passos.
+
+Obs: nos casos em que seja necessário decidir entre vizinhos, tanto na busca em largura quanto na busca em profundidade, escolher usando ordem alfabética.
+
+11 - Largura: ABDCEGHF 
+
+       Profundidade: ABCEHFGD

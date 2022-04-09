@@ -1,0 +1,210 @@
+3) Dada uma árvore AVL, mostre como é possível construir uma nova árvore idêntica utiizando operações básicas (como inserção) sem a necessidade de rotações.
+Explique cada passo ou escreva um algoritmo.
+
+void insereSemRotacao(ArvAVL* arv1, ArvAVL* arv2)
+{
+
+    TipoFila *fila;
+    ArvAVL *aux;
+    int alt_ant, alt_pos;
+
+    if (!arv_vazia(arv1))
+    {
+        f = IniciaFila();
+        Enfileira(arv1, fila);
+
+        while (!Vazia(fila))
+        {
+
+            aux = Desenfileira(fila);
+            insere_ArvAVL(arv2, aux->info);
+
+            if (!estaVazia_ArvAVL(aux->esq))
+                Enfileira(aux->esq, fila);
+
+            if (!estaVazia_ArvAVL(aux->dir))
+                Enfileira(aux->dir, fila);
+        }
+    }
+}
+
+Usar uma fila pra guardar os nós de arv1 na ordem em que são encontradas, e ao desinfileirar inserir na arv2. Com a inserção da AVL o nó já cai no lugar certo.
+
+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+4) Considere um tipo abstrato de dados que consiste em um conjunto ordenado de chaves V. Cada chave possui um contador associado, que é um inteiro não-negativo.
+Este TAD suporta duas operações:
+
+1. INC_CONTADOR (v) : incrementa o contador associado à chave v (v ∈ V).
+2. DEC_MAIOR_CONTADOR ( ) : encontra a chave v associada ao contador que possui o maior valor entre todas as chaves, decrementa seu contador e retorna v. Se todos os valores estiverem com contador = 0, retorna -1. 
+As chaves devem ser inseridas numa árvore AVL, inicialmente com o contador fixado em zero. Ambas as operações INC_CONTADOR e DEC_MAIOR_CONTADOR devem ter tempo O(log N) no pior caso, sendo N o número de chaves.
+
+Faça:
+
+(a) Que campos devem ser adicionados à cada nó da árvore AVL? Defina a estrutura nó para a árvore AVL.
+
+struct NO
+{
+    int info;
+    int altura;
+    struct NO *esq;
+    struct NO *dir;
+
+    struct cont
+    {
+        int chave;
+        int cont;
+    }cont;
+};
+
+(b) Explique como devem funcionar, usando operações AVL, as funções INC_CONTADOR e DEC_MAIOR_CONTADOR em tempo O(log N). Estruture sua resposta em formato algorítmico ou código em C.
+
+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+5) Para que árvores AVL estejam balanceadas, é necessário armazenar a diferença de altura das subárvores (direita e esquerda) de cada nó na árvore. Esta diferença é comumente chamada de fator de balanceamento. 
+Escreva um método recursivo int calculaDifAltura(AVLNo p) que atribui para cada nó da árvore o seu fator de balanceamento, sendo p o nó raiz da árvore. A função deve retornar um inteiro, indicando o fator de balanceamento do nó p.
+
+struct NO
+{
+    int info;
+    int altura;
+    struct NO *esq;
+    struct NO *dir;
+};
+typedef struct NO* ArvAVL;
+
+int max(int a, int b)
+{
+    return (a > b ? a : b);
+}
+
+int estaVazia_ArvAVL(ArvAVL *raiz)
+{
+    if(raiz == NULL)
+        return 1;
+
+    if(*raiz == NULL)
+        return 1;
+
+    return 0;
+}
+
+int altura_ArvAVL(ArvAVL *raiz)
+{
+    if (raiz == NULL)
+        return 0;
+
+    if (*raiz == NULL)
+        return 0;
+
+    int alt_esq = altura_ArvAVL(&((*raiz)->esq));
+    int alt_dir = altura_ArvAVL(&((*raiz)->dir));
+
+    if (alt_esq > alt_dir)
+        return (alt_esq + 1);
+    else
+        return(alt_dir + 1);
+}
+
+int fator_balanceamento(ArvAVL arv)
+{
+    if(arv == NULL) 
+        return 0;
+
+    return (altura_ArvAVL(arv->esq) - altura_ArvAVL(arv->dir));
+}
+
+int calculaDifAltura(ArvAVL p)
+{
+    ArvAVL aux;
+    int alt_esq = 0, alt_dir = 0;
+
+    if(p == NULL)
+        return 0;
+    else
+    {
+        alt_esq = 1 + calculaDifAltura(p->esq);
+        alt_dir = 1 + calculaDifAltura(p->dir);
+
+        int alt = max(alt_esq, alt_dir);
+
+        p->altura = alt;
+        return alt;
+    }
+}
+
+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+6) Dada uma árvore rubro-negra, escreva uma função para contar quantos são os nós vermelhos.
+
+p.s. Incluir a definição da árvore rubro-negra que será utilizada na solução.
+
+struct flamengo
+{
+   int info;
+   char cor;
+   struct flamengo *esq, *dir, *pai;
+};
+
+int countRed(struct flamengo * raiz)
+{
+   int qnt = 0;
+   int esq = 0;
+   int dir = 0;
+   struct flamengo * aux = raiz;
+
+   if (aux != NULL) 
+   {
+      if(aux -> cor == 'red') qtd++;
+
+      esq = countRed(aux->esq);
+      dir = countRed(aux->dir);
+   }
+
+   return qtd + esq + dir;
+}
+
+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+7) O tempo de execução da busca de um elemento (chave) em uma árvore binária de busca completa é:
+
+. O(log n)
+
+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+8) Seja uma tabela hash A, inicialmente vazia, de tamanho 10. 
+Uma função de espalhamento h(x) = x mod 10 foi utilizada para inserir seis valores inteiros. O resultado pode ser visto abaixo.
+
+.  46 34 42 23 52 33
+.  42 23 34 52 46 33
+
+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+9) Considerando a inserção do elemento 52 na questão anterior, quantas colisões aconteceram? Forneça o número na sua resposta (não coloque por extenso).
+
+R: 3
+
+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+10) Considere uma tabela hash B, definida com a estratégia de encadeamento separado. 
+Esta tabela hash tem tamanho 10 e uma função de espalhamento h(x) = x mod 10 para chaves inteiras.
+
+a) Mostre a tabela hash B resultante da inserção dos elementos: 1011, 1010, 1001, 1000, 1100, 1101, 1110, 1111
+
+A)
+
+Tabela B
+
+    0      1     2    3   4    5    6    7    8    9
+
+| 1010 | 1011 |    |    |    |    |    |    |    |    |
+
+| 1000 | 1001 |    |    |    |    |    |    |    |    |
+
+| 1100 | 1101 |    |    |    |    |    |    |    |    |
+
+| 1110 | 1111 |    |    |    |    |    |    |    |    |
+
+b) Faça uma proposta de mudança para que a tabela hash B possa receber os elementos do item (a) com melhor desempenho. Mostre o resultado da aplicação da mudança.
+
+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+11) Seja uma tabela hash C, de tamanho 11, com uma função de espalhamento h(x) = (2x+5) mod 11.
+Após a inserção dos valores 12, 44, 13, 88, 23, 94, 11, 39, 20, 16, 5, os seguintes resultados foram obtidos:
+
+. 6 colisões utilizando-se armazenamento encadeamento separado;
+. 29 colisões utilizando-se espaçamento aberto, com sondagem linear (+1).
+
+Explique porquê a quantidade de colisões foi maior quando utilizou-se o espaçamento aberto.

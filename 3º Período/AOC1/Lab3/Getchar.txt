@@ -1,0 +1,22 @@
+.text
+
+main:
+    jal getchar # vai para getchar
+    move $a0, $v0 # coloca o char inserido em $a0
+    jal isdigit # vai para isdigit
+    li $v0, 10 #return 0
+    syscall
+    
+isdigit:
+    sge $t1, $a0, 48 # se for maior ou igual a 48 (ASCII) $t1 = 1 else =0
+    sle $t2, $a0, 57 # se for menor ou igual a 57 (ASCII) $t2 = 1 else = 0
+    and $v0, $t1, $t2 #$v0 = 1 se $t1 e $t2 forem 1 else $v0 = 0
+    move $s0, $v0
+    jr $ra
+
+getchar: # retorna char em $v0
+    lw $v0, 0xffff0000
+    andi $v0, $v0, 0x01
+    beq $v0, $zero, getchar
+    lw $v0, 0xffff0004
+    jr $ra
